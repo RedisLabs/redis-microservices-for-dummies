@@ -1,6 +1,6 @@
 # Redis Microservices for Dummies
 This repository contains the source code for the sample app discussed 
-in the last chapter of the freely available [Redis Microservices for Dummies](https://redislabs.com) book.
+in the last chapter of the freely available [Redis Microservices for Dummies](https://redislabs.com/docs/redis-microservices-for-dummies/) book.
 
 ## Overview
 This is a sample application written in Python that models the core 
