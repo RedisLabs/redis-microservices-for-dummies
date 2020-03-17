@@ -10,8 +10,8 @@ LENDING_REQUESTS_STREAM_KEY = "lending_requests_event_stream"
 BOOK_RETURN_REQUESTS_STREAM_KEY = "book_return_requests_event_stream"
 
 
-async def main(action, user, books, address, db, password, ssl):
-	pool = await aioredis.create_redis_pool(address, db=db, password=password, ssl=ssl,
+async def main(action, user, books, address, db, password):
+	pool = await aioredis.create_redis_pool(address, db=db, password=password, 
 		minsize=4, maxsize=10, loop=loop, encoding='utf8')
 
 	# Choose the target stream based on `action`
@@ -42,11 +42,9 @@ if __name__ == '__main__':
 		help='redis database to use, defaults to 0')
 	parser.add_argument('--password', type=str, default=None,
 		help='redis password')
-	parser.add_argument('--ssl', action='store_true', default=None,
-		help='use ssl')
 	args = parser.parse_args()
 
 	loop.run_until_complete(main(action=args.action, user=args.name, books=args.books, 
-		address=args.address, db=args.db, password=args.password, ssl=args.ssl))
+		address=args.address, db=args.db, password=args.password))
 		
 

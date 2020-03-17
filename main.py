@@ -20,8 +20,8 @@ def graceful_shutdown():
 		service.shutting_down = True
 	print("\nShutting down (might take up to 10s)...")
 
-async def main(instance_name, force, address, db, password, ssl):
-	pool = await aioredis.create_redis_pool(address, db=db, password=password, ssl=ssl,
+async def main(instance_name, force, address, db, password):
+	pool = await aioredis.create_redis_pool(address, db=db, password=password,
 		minsize=4, maxsize=10, loop=loop, encoding='utf8')
 
 	lock_key = f"instance_lock:{instance_name}"
@@ -62,11 +62,9 @@ if __name__ == '__main__':
 		help='redis database to use, defaults to 0')
 	parser.add_argument('--password', type=str, default=None,
 		help='redis password')
-	parser.add_argument('--ssl', action='store_true', default=None,
-		help='use ssl')
 	args = parser.parse_args()
 
 	loop.run_until_complete(main(instance_name=args.name, force=args.force, 
-		address=args.address, db=args.db, password=args.password, ssl=args.ssl))
+		address=args.address, db=args.db, password=args.password))
 		
 
